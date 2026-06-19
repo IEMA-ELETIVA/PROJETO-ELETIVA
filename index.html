@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sistema de Aproximação por RF - Apresentação do Projeto</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,900|Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    
+    <style>
+        /* Paleta de Cores Oficial (IEMA) */
+        :root {
+            --cor-vermelho: #cf2e2e;
+            --cor-preto: #111111;
+            --cor-preto-suave: #1c1c1c;
+            --cor-branco: #ffffff;
+            --cor-cinza-claro: #f8f9fa;
+            --cor-cinza-borda: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--cor-branco);
+            color: var(--cor-preto);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Animações de Rolagem */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar com espaço para o Ícone */
+        nav {
+            background-color: var(--cor-preto);
+            padding: 15px 10%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid var(--cor-vermelho);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Ícone do IEMA */
+        .iema-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--cor-branco);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            color: var(--cor-preto);
+            border: 2px solid var(--cor-vermelho);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo-text {
+            color: var(--cor-branco);
+            font-size: 22px;
+            font-weight: 900;
+            font-family: 'Raleway', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--cor-vermelho);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--cor-branco);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--cor-vermelho);
+        }
+
+        /* Hero / Banner Principal */
+        .hero {
+            background: linear-gradient(135deg, var(--cor-preto) 60%, var(--cor-preto-suave) 100%);
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 15% 80px 15%;
+            color: var(--cor-branco);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .tag-projeto {
+            background-color: var(--cor-vermelho);
+            color: var(--cor-branco);
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: var(--cor-vermelho);
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #d1d1d1;
+            margin-bottom: 35px;
+        }
+
+        /* Seções de Apresentação */
+        section {
+            padding: 90px 10%;
+        }
+
+        .bg-light {
+            background-color: var(--cor-cinza-claro);
+        }
+
+        .titulo-secao {
+            font-size: 32px;
+            margin-bottom: 50px;
+            position: relative;
+            text-align: center;
+        }
+
+        .titulo-secao::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--cor-vermelho);
+            margin: 12px auto 0 auto;
+        }
+
+        /* Cards Informativos */
+        .bloco-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card-apresentacao {
+            background: var(--cor-branco);
+            border: 1px solid var(--cor-cinza-borda);
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            transition: transform 0.3s;
+        }
+
+        .card-apresentacao:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-apresentacao i {
+            font-size: 36px;
+            color: var(--cor-vermelho);
+            margin-bottom: 20px;
+        }
+
+        .card-apresentacao h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card-apresentacao p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Destaque de Impacto Social */
+        .proposito-social {
+            background-color: var(--cor-vermelho);
+            color: var(--cor-branco);
+            text-align: center;
+            padding: 100px 15%;
+        }
+
+        .proposito-social h2 {
+            font-size: 38px;
+            margin-bottom: 25px;
+        }
+
+        .proposito-social p {
+            font-size: 18px;
+            line-height: 1.7;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        /* Listas de Detalhes Técnicos */
+        .detalhes-tecnicos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .coluna-tecnica {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .coluna-tecnica h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--cor-vermelho);
+            padding-left: 12px;
+        }
+
+        .lista-itens {
+            list-style: none;
+        }
+
+        .lista-itens li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .lista-itens li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            color: var(--cor-vermelho);
+            font-size: 12px;
+            top: 2px;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--cor-preto);
+            color: var(--cor-branco);
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 4px solid var(--cor-vermelho);
+            font-size: 14px;
+        }
+
+        footer p:last-child {
+            color: #777;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 900px) {
+            nav { padding: 15px 20px; }
+            nav ul { display: none; }
+            .hero { padding: 120px 8% 60px 8%; }
+            .hero h1 { font-size: 34px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">
+            <img src="/Code/images.png" alt="" style="width: 210px;border-radius: 10px;">
+        </div>
+        <ul>
+            <li><a href="#proposito">Propósito</a></li>
+            <li><a href="#engenharia">Engenharia</a></li>
+            <li><a href="#componentes">Componentes</a></li>
+            <li><a href="#especificacoes">Especificações</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="tag-projeto">Apresentação de Projeto</span>
+            <h1>Sistema de Monitoramento por Aproximação via <span>Radiofrequência</span></h1>
+            <p>Uma aplicação tecnológica inteligente desenvolvida sobre a plataforma Arduino, projetada para a detecção de proximidade em tempo real com emissão de alertas sonoros responsivos.</p>
+            <a href="#proposito" style="background: var(--cor-vermelho); color: white; padding: 14px 32px; text-decoration: none; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 15px rgba(207,46,46,0.3); display: inline-block;">Conhecer o Projeto</a>
+        </div>
+    </header>
+
+    <section class="proposito-social" id="proposito">
+        <div class="fade-in">
+            <h2>Tecnologia Aplicada à Segurança e Medidas Protetivas</h2>
+            <p>O objetivo central deste sistema é atuar como uma barreira tecnológica preventiva para <strong>vítimas protegidas por medidas judiciais</strong>. Ao vincular o transmissor de RF à tornozeleira eletrônica do indivíduo monitorado, o receptor em posse da vítima identifica instantaneamente qualquer violação de distância regulamentada, gerando alertas sonoros imediatos e oferecendo tempo de resposta essencial para a ativação das autoridades.</p>
+        </div>
+    </section>
+
+    <section class="bg-light" id="engenharia">
+        <h2 class="titulo-secao">Engenharia de Funcionamento</h2>
+        <div class="bloco-info">
+            <div class="card-apresentacao fade-in">
+                <i class="fas fa-wave-square"></i>
+                <h3>Emissão de Ondas</h3>
+                <p>O módulo transmissor propaga ondas eletromagnéticas contínuas pelo ambiente externo, convertendo impulsos elétricos de dados em sinal de rádio puro.</p>
+            </div>
+            <div class="card-apresentacao fade-in">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Análise de Frequência</h3>
+                <p>O microcontrolador Arduino processa os pacotes recebidos pelo módulo receptor, interpretando as oscilações de dados e mensurando o nível de presença do sinal.</p>
+            </div>
+            <div class="card-apresentacao fade-in">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Alerta Progressivo</h3>
+                <p>O sistema atua em tempo real: conforme o transmissor reduz a distância física com o receptor, a frequência de bipes do buzzer intensifica de maneira proporcional.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="componentes">
+        <h2 class="titulo-secao">Componentes de Hardware</h2>
+        <div class="bloco-info">
+            <div class="card-apresentacao fade-in" style="border-top: 3px solid var(--cor-preto);">
+                <h3>Microcontrolador</h3>
+                <p><strong>Arduino Uno:</strong> Placa responsável pelo processamento lógico, leitura dos barramentos de comunicação e acionamento periférico.</p>
+            </div>
+            <div class="card-apresentacao fade-in" style="border-top: 3px solid var(--cor-preto);">
+                <h3>Comunicação</h3>
+                <p><strong>Módulos RF (TX/RX):</strong> Hardware de rádiofrequência dedicado para a criação da ponte de conexão sem fio entre os extremos monitorados.</p>
+            </div>
+            <div class="card-apresentacao fade-in" style="border-top: 3px solid var(--cor-preto);">
+                <h3>Indicador Sonoro</h3>
+                <p><strong>Buzzer Piezoelétrico:</strong> Transdutor de áudio que executa a sinalização acústica preventiva projetada pelo código do sistema.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light" id="especificacoes">
+        <h2 class="titulo-secao">Especificações & Viabilidade</h2>
+        <div class="detalhes-tecnicos">
+            <div class="coluna-tecnica fade-in">
+                <h3>Vantagens Técnicas</h3>
+                <ul class="lista-itens">
+                    <li>Custos reduzidos de insumos e manufatura eletrônica.</li>
+                    <li>Estrutura modular de fácil montagem e programação escalável.</li>
+                    <li>Arquitetura projetada para baixo consumo energético.</li>
+                    <li>Conexão de dados direta via rádio, independente de internet móvel.</li>
+                    <li>Capacidade de integração com LEDs, visores de cristal líquido ou módulos vibratórios adicionais.</li>
+                </ul>
+            </div>
+            <div class="coluna-tecnica fade-in">
+                <h3>Escopo de Aplicação</h3>
+                <ul class="lista-itens">
+                    <li>Rastreamento de perímetros de segurança residencial ou industrial.</li>
+                    <li>Dispositivos integrados para localização e achado de objetos.</li>
+                    <li>Mapeamento logístico de movimentação de ferramentas em galpões.</li>
+                    <li>Projetos de cunho educacional focados em automação, telecomunicação e eletrônica física.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Instituto de Educação, Ciência e Tecnologia do Maranhão - IEMA</p>
+        <p>Apresentação Científica de Projeto de Automação</p>
+    </footer>
+
+    <script>
+        // Animação suave ao rolar a página (Fade-in das seções)
+        const faders = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -40px 0px"
+        };
+
+        const appearanceObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                appearanceObserver.unobserve(entry.target);
+            });
+        }, observerOptions);
+
+        faders.forEach(fader => {
+            appearanceObserver.observe(fader);
+        });
+    </script>
+</body>
+</html>
